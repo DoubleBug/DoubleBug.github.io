@@ -63,6 +63,61 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-set与map-es6" class="article article-type-post" itemscope="" itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/04/set与map-es6/" class="article-date">
+  <time datetime="2018-12-04T01:45:19.000Z" itemprop="datePublished">2018-12-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/04/set与map-es6/">set与map es6 </a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="set和map"><a href="#set和map" class="headerlink" title="set和map"></a>set和map</h2><h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><p>ES6提供了新的数据结构Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。<br>Set函数可以接受一个数组（或类似数组的对象）作为参数，用来初始化。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">var set = new Set([1, 2, 3, 4, 4]);</span><br><span class="line">[...set]</span><br><span class="line">// [1, 2, 3, 4]</span><br><span class="line"></span><br><span class="line">var s = new Set();</span><br><span class="line"></span><br><span class="line">[2, 3, 5, 4, 5, 2, 2].map(x =&gt; s.add(x));</span><br><span class="line"></span><br><span class="line">// 2 3 5 4</span><br></pre></td></tr></table></figure>
+<p>在Set内部，两个NaN是相等。两个对象总是不相等的。可以用length来检测</p>
+<p>四个操作方法：</p>
+<pre><code>- add(value)：添加某个值，返回Set结构本身。
+- delete(value)：删除某个值，返回一个布尔值，表示删除是否成功。
+- has(value)：返回一个布尔值，表示该值是否为Set的成员。
+- clear()：清除所有成员，没有返回值
+</code></pre><p><strong> set内部的元素可以遍历for…of… </strong></p>
+<hr>
+<h3 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h3><p>Map结构提供了“值—值”的对应，是一种更完善的Hash结构实现。如果你需要“键值对”的数据结构，Map比Object更合适。它类似于对象，也是键值对的集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">var m = new Map();</span><br><span class="line">var o = &#123;p: &quot;Hello World&quot;&#125;;</span><br><span class="line"></span><br><span class="line">m.set(o, &quot;content&quot;)</span><br><span class="line">m.get(o) // &quot;content&quot;</span><br><span class="line"></span><br><span class="line">m.has(o) // true</span><br><span class="line">m.delete(o) // true</span><br><span class="line">m.has(o) // false</span><br></pre></td></tr></table></figure>
+<p>注意，只有对同一个对象的引用，Map结构才将其视为同一个键。这一点要非常小心。<br>注：判定集合中是否含有指定元素，返回一个布尔值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">var map = new Map();</span><br><span class="line"></span><br><span class="line">map.set([&apos;a&apos;], 555);</span><br><span class="line">map.get([&apos;a&apos;]) // undefined</span><br><span class="line">上面代码的set和get方法，表面是针对同一个键，但实际上这是两个值，内存地址是不一样的，因此get方法无法读取该键，返回undefined。</span><br></pre></td></tr></table></figure>
+<p>如果Map的键是一个简单类型的值（数字、字符串、布尔值），则只要两个值严格相等，Map将其视为一个键，包括0和-0。另外，虽然NaN不严格相等于自身，但Map将其视为同一个键。</p>
+<p>实例属性和方法：size、set、get、has、delete、clear</p>
+<p>遍历方法：keys（）、values（）、entries（）、forEach（）</p>
+<p>一个Set是一群值的集合。它是可变的，能够增删元素。</p>
+<p>set 它和数组不同是不会包含相同元素。试图再次加入一个已有元素不会产生任何效果。<br>new Set：创建一个新的、空的Set。<br>new Set(iterable)：从任何可遍历数据中提取元素，构造出一个新的集合。<br>set.size：获取集合的大小，即其中元素的个数。<br>set.has(value)：判定集合中是否含有指定元素，返回一个布尔值。<br>set.add(value)：添加元素。如果与已有重复，则不产生效果。<br>set.delete(value)：删除元素。如果并不存在，则不产生效果。.add()和.delete()都会返回集合自身，所以我们可以用链式语法。<br>_  setSymbol.iterator：返回一个新的遍历整个集合的迭代器。一般这个方法不会被直接调用，因为实际上就是它使集合能够被遍历，也就是说，我们可以直接写for (v of set) {…}等等。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://doublebug.github.io/2018/12/04/set与map-es6/" data-id="cjp93le62000366wfca5wlqoj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-js-filter-es6-方法总结" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/12/03/js-filter-es6-方法总结/" class="article-date">
@@ -103,7 +158,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://doublebug.github.io/2018/12/03/js-filter-es6-方法总结/" data-id="cjp8710010002dvwfws38cll8" class="article-share-link">Share</a>
+      <a data-url="http://doublebug.github.io/2018/12/03/js-filter-es6-方法总结/" data-id="cjp93le60000266wfvvdf1c4o" class="article-share-link">Share</a>
       
       
     </footer>
@@ -146,7 +201,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://doublebug.github.io/2018/11/22/css-display属性/" data-id="cjp870zzu0000dvwfu1gjc36n" class="article-share-link">Share</a>
+      <a data-url="http://doublebug.github.io/2018/11/22/css-display属性/" data-id="cjp93le5r000066wfmxu27ues" class="article-share-link">Share</a>
       
       
     </footer>
@@ -183,7 +238,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://doublebug.github.io/2018/11/20/你好，Hexo/" data-id="cjp8710030003dvwf9mrahl66" class="article-share-link">Share</a>
+      <a data-url="http://doublebug.github.io/2018/11/20/你好，Hexo/" data-id="cjp93le64000466wfh42j1hyc" class="article-share-link">Share</a>
       
       
     </footer>
@@ -228,7 +283,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://doublebug.github.io/2018/11/20/hello-world/" data-id="cjp870zzz0001dvwfigjfzsm9" class="article-share-link">Share</a>
+      <a data-url="http://doublebug.github.io/2018/11/20/hello-world/" data-id="cjp93le5x000166wfp1akxo5m" class="article-share-link">Share</a>
       
       
     </footer>
@@ -267,6 +322,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/12/04/set与map-es6/">set与map es6 </a>
+          </li>
         
           <li>
             <a href="/2018/12/03/js-filter-es6-方法总结/">js filter() es6 方法总结</a>
